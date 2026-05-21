@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const bubbleContainer = document.getElementById('bubble-container');
     const splashScreen = document.getElementById('splash-screen');
     const mainButton = document.querySelector('.main-button');
-    const form = document.querySelector('.contact-form');
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
     const isMobile = screenWidth <= 768;
@@ -162,69 +161,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         document.body.classList.remove('splash-active');
-    }
-});
-
-
-form.addEventListener('submit', async function(event) {
-    event.preventDefault(); // Empêche la redirection sauvage vers Formspree
-    
-    const data = new FormData(form);
-    const button = form.querySelector('.submit-btn');
-    
-    // 1. On détecte la langue du formulaire (par défaut 'en' si non trouvé)
-    const lang = form.getAttribute('data-lang') || 'en';
-    
-    // 2. On prépare les textes selon la langue
-    const texts = {
-        en: {
-            sending: "Sending...",
-            buttonText: "Send Message",
-            error: "Oops! There was a problem submitting your form.",
-            networkError: "Oops! There was a connectivity issue.",
-            redirectUrl: "https://tkc-center.github.io/my-portfolio/en/thanks.html"
-        },
-        fr: {
-            sending: "Envoi en cours...",
-            buttonText: "Envoyer le message",
-            error: "Oups ! Un problème est survenu lors de l'envoi.",
-            networkError: "Oups ! Problème de connexion réseau.",
-            redirectUrl: "https://tkc-center.github.io/my-portfolio/fr/merci.html"
-        },
-
-        de: {
-            sending: "Sending...",
-            buttonText: "Nachricht senden",
-            error: "Oops! Beim Absenden Ihres Formulars ist ein Problem aufgetreten.",
-            networkError: "Oops! There was a connectivity issue.",
-            redirectUrl: "https://tkc-center.github.io/my-portfolio/de/thanks.html"
-        }
-    };
-
-    // On applique le texte de chargement sur le bouton
-    button.textContent = texts[lang].sending;
-    button.disabled = true;
-
-    try {
-        const response = await fetch(form.action, {
-            method: form.method,
-            body: data,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            // 3. Redirection automatique vers la bonne URL selon la langue !
-            window.location.href = texts[lang].redirectUrl;
-        } else {
-            alert(texts[lang].error);
-            button.textContent = texts[lang].buttonText;
-            button.disabled = false;
-        }
-    } catch (error) {
-        alert(texts[lang].networkError);
-        button.textContent = texts[lang].buttonText;
-        button.disabled = false;
     }
 });
