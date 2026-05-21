@@ -319,6 +319,8 @@ body.splash-active {
 .about-text p { margin-bottom: 1.5rem; }
 .about-image { flex: 1; text-align: center; }
 .about-image img { max-width: 300px; border-radius: 00%; border: 0px solid var(--primary-color); }
+
+
 @media (max-width: 768px) { .about-container { flex-direction: column; } }
 .cv-button {
     display: inline-block; margin-top: 1rem; background-color: var(--accent-color-green);
@@ -326,6 +328,13 @@ body.splash-active {
     font-weight: 600; font-size: 1rem; transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .cv-button:hover { background-color: #26a641; transform: translateY(-3px); }
+
+.return-button {
+    display: inline-block; margin-top: 1rem; background-color: var(--accent-color-green);
+    color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none;
+    font-weight: 600; font-size: 1rem; transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.return-button:hover { background-color: #26a641; transform: translateY(-3px); }
 
 /* --- Skills Page Styles --- */
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(auto-fit, 1fr)); gap: 2rem; }
