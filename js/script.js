@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bubbleContainer = document.getElementById('bubble-container');
     const splashScreen = document.getElementById('splash-screen');
     const mainButton = document.querySelector('.main-button');
+    const form = document.querySelector('.contact-form');
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
     const isMobile = screenWidth <= 768;
@@ -161,5 +162,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         document.body.classList.remove('splash-active');
+    }
+});
+
+form.addEventListener('submit', async function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page vers Formspree
+    
+    const data = new FormData(form);
+    const button = form.querySelector('.submit-btn');
+    
+    button.textContent = "Sending..."; // Petit effet visuel sympa
+    button.disabled = true;
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Le message est envoyé avec succès ! On redirige nous-mêmes :
+            window.location.href = "https://tkc-center.github.io/my-portfolio/en/thanks.html";
+        } else {
+            alert("Oops! There was a problem submitting your form.");
+            button.textContent = "Send Message";
+            button.disabled = false;
+        }
+    } catch (error) {
+        alert("Oops! There was a connectivity issue.");
+        button.textContent = "Send Message";
+        button.disabled = false;
     }
 });
